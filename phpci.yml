@@ -1,0 +1,29 @@
+build_settings:
+  clone_depth: 1
+  ignore:
+    - "vendor"
+    - "tests"
+  mysql:
+    host: "localhost"
+    user: "phpci"
+    pass: ""
+
+setup:
+  mysql:
+    - "DROP DATABASE IF EXISTS yii2advanced_test;"
+    - "CREATE DATABASE yii2advanced_test;"
+    - "GRANT ALL PRIVILEGES ON yii2advanced_test.* TO 'phpci'@'localhost';"
+  composer:
+    action: "install"
+  shell:
+    - "cd %BUILD_PATH% && php init --env=Development --overwrite=All && php yii_test migrate --interactive=0"
+
+test:
+  php_mess_detector:
+    allow_failures: true
+  php_code_sniffer:
+    standard: "PSR2"
+  php_cpd:
+    allow_failures: true
+  codeception:
+    allow_failures: false
