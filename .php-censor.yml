@@ -26,4 +26,4 @@ test:
   php_cpd:
     allow_failures: true
   codeception:
-    allow_failures: false
+    config: "codeception.yml"
